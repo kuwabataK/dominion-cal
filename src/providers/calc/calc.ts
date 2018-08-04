@@ -39,7 +39,7 @@ export class CalcProvider {
   }
 
   /**
-   * 手札から実行します。
+   * アクションフェイズと金貨の支払いを実行します。
    * 
    * @param hands 
    */
@@ -47,8 +47,9 @@ export class CalcProvider {
     let new_f = JSON.parse(JSON.stringify(field_status))
     while (new_f.action_point > 0) {
       new_f.hands.sort((a, b) => { return b.action_point - a.action_point })
+      if (new_f.hands.length === 0) { return new_f }
       new_f = this.execOneActionCard(new_f.hands[0], new_f)
-      console.log(new_f.action_point)
+      // console.log(new_f.action_point)
       console.log(new_f.money_point)
     }
     return new_f

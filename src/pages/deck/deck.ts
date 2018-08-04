@@ -19,6 +19,11 @@ import { CalcProvider } from '../../providers/calc/calc';
 export class DeckPage {
 
   field_status: Field_Status = new Field_Status
+  deck_length: number = 0
+  total_money = 0
+  avarage_money: number = 0
+  max_money: number = 0
+  min_money = 0
 
   constructor(
     public navCtrl: NavController,
@@ -53,7 +58,37 @@ export class DeckPage {
       this.field_status.deck.push(yashiki)
     })
 
-    this.field_status = this.calc.follow_turn(this.field_status)
+    this.deck_length = this.field_status.deck.length
+
+    const f_a = Array(100).fill('').map(() => {
+      return this.calc.follow_turn(this.field_status)
+    })
+
+    let total_money = 0
+    const mp_a = f_a.map((val) => {
+      total_money += val.money_point
+      return val.money_point
+    })
+    this.avarage_money = total_money / 100
+    this.max_money = Math.max(...mp_a)
+    this.min_money = Math.min(...mp_a)
+
+  }
+
+  calc_money(count: number){
+
+    const f_a = Array(count).fill('').map(() => {
+      return this.calc.follow_turn(this.field_status)
+    })
+
+    let total_money = 0
+    const mp_a = f_a.map((val) => {
+      total_money += val.money_point
+      return val.money_point
+    })
+    this.avarage_money = total_money / count
+    this.max_money = Math.max(...mp_a)
+    this.min_money = Math.min(...mp_a)
 
   }
 

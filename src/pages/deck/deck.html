@@ -17,11 +17,36 @@
 
   <ion-card>
     <ion-card-header>
-      出力金貨料
+      出力金貨量
     </ion-card-header>
     <ion-card-content>
-      {{field_status.money_point}}
+      <p>平均値</p>
+      <p>{{avarage_money}}</p>
+      <p>最大値</p>
+      <p>{{max_money}}</p>
+      <p>最小値</p>
+      <p>{{min_money}}</p>
+      <p>デッキ枚数</p>
+      <p>{{deck_length}}</p>
     </ion-card-content>
   </ion-card>
+
+  <button ion-button full (click)="calc_money(100)">計算する</button>
+
+  <ion-card *ngFor="let a of field_status.deck">
+    <ion-card-header>
+      {{a.name}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>金</p>
+      <p>{{a.money_point}}</p>
+      <p>アクション</p>
+      <p>{{a.action_point}}</p>
+      <p>ドロー</p>
+      <p>{{a.draw_num}}</p>
+    </ion-card-content>
+  </ion-card>
+
+
 
 </ion-content>
