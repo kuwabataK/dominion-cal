@@ -31,7 +31,7 @@ export class CalcProvider {
    * 
    * @param field_status 初期デッキ
    */
-  generate_first_hands(field_status: Field_Status): Field_Status {
+  private generate_first_hands(field_status: Field_Status): Field_Status {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
     new_f = this.drawCard(5, new_f)
     return new_f
@@ -41,7 +41,7 @@ export class CalcProvider {
    * 金貨の支払いを実行します
    * @param field_status 
    */
-  exec_money(field_status: Field_Status): Field_Status {
+  private exec_money(field_status: Field_Status): Field_Status {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
     new_f.hands.map((card) => {
       if (card.type === 'money') {
@@ -56,7 +56,7 @@ export class CalcProvider {
    * 
    * @param hands 
    */
-  exec_action(field_status: Field_Status): Field_Status {
+  private exec_action(field_status: Field_Status): Field_Status {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
     while (new_f.action_point > 0) {
       if (new_f.hands.length === 0) { return new_f }
@@ -78,7 +78,7 @@ export class CalcProvider {
    * @param card 
    * @param fiels_status
    */
-  execOneActionCard(card: Card, field_status: Field_Status): Field_Status {
+  private execOneActionCard(card: Card, field_status: Field_Status): Field_Status {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
 
     // 定性的な処理
@@ -101,7 +101,7 @@ export class CalcProvider {
    * @param num 
    * @param deck 
    */
-  drawCard(num: number, field_status: Field_Status): Field_Status {
+  private drawCard(num: number, field_status: Field_Status): Field_Status {
     if (field_status.deck.length === 0) { return field_status }
     if (num === 0) { return field_status }
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
