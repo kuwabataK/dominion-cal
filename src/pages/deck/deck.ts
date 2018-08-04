@@ -25,6 +25,7 @@ export class DeckPage {
   max_money: number = 0
   min_money = 0
 
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -38,6 +39,7 @@ export class DeckPage {
 
     const douka: Card = {
       name: '銅貨',
+      type: 'money',
       money_point: 1,
       action_point: 1,
       draw_num: 0
@@ -45,10 +47,19 @@ export class DeckPage {
 
     const yashiki: Card = {
       name: '屋敷',
+      type: 'money',
       money_point: 0,
       action_point: 0,
       draw_num: 0
     }
+
+    let t_doro = new Card()
+    t_doro.name = '鍛冶屋'
+    t_doro.type = 'action'
+    t_doro.action_point = 0
+    t_doro.draw_num = 3
+
+    this.field_status.deck.push(t_doro)
 
     Array(7).fill('').map((val) => {
       this.field_status.deck.push(douka)
@@ -75,7 +86,7 @@ export class DeckPage {
 
   }
 
-  calc_money(count: number){
+  calc_money(count: number) {
 
     const f_a = Array(count).fill('').map(() => {
       return this.calc.follow_turn(this.field_status)
