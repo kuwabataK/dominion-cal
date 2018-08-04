@@ -14,16 +14,42 @@ export class CalcProvider {
   constructor() {
   }
 
+
+
   /**
-   * 手札から出せる最大金量を出力します。
+   * ターンを進めます
+   * @param field_status 
+   */
+  follow_turn(field_status: Field_Status): Field_Status {
+    let new_f = JSON.parse(JSON.stringify(field_status))
+    new_f = this.generate_first_hands(new_f)
+    new_f = this.exec_action(new_f)
+    return new_f
+  }
+
+  /**
+   * 最初の手札５枚を引きます
+   * 
+   * @param field_status 初期デッキ
+   */
+  generate_first_hands(field_status: Field_Status): Field_Status {
+    let new_f = JSON.parse(JSON.stringify(field_status))
+    new_f = this.drawCard(5, new_f)
+    return new_f
+  }
+
+  /**
+   * 手札から実行します。
+   * 
    * @param hands 
    */
-  calc_generate_point(field_status: Field_Status): Field_Status {
-    const f = field_status
-    let new_f = f
+  exec_action(field_status: Field_Status): Field_Status {
+    let new_f = JSON.parse(JSON.stringify(field_status))
     while (new_f.action_point > 0) {
       new_f.hands.sort((a, b) => { return b.action_point - a.action_point })
       new_f = this.execOneActionCard(new_f.hands[0], new_f)
+      console.log(new_f.action_point)
+      console.log(new_f.money_point)
     }
     return new_f
   }
@@ -36,15 +62,16 @@ export class CalcProvider {
    * @param card 
    * @param fiels_status
    */
-  execOneActionCard(card: Card, fiels_status: Field_Status): Field_Status {
-    const f = fiels_status
-    let new_f = f
-    new_f.money_point += card.money_point
-    new_f.action_point -= 1
-    new_f.action_point += card.action_point
+  execOneActionCard(card: Card, field_status: Field_Status): Field_Status {
+    let new_f = JSON.parse(JSON.stringify(field_status))
+
+    new_f.money_point = new_f.money_point + card.money_point
+    new_f.action_point = new_f.action_point - 1
+    new_f.action_point = new_f.action_point + card.action_point
     if (card.draw_num > 0) {
       new_f = this.drawCard(card.draw_num, new_f)
     }
+    new_f.hands = new_f.hands.filter((val, i) => { return i !== 0 })
     return new_f
   }
 
@@ -55,12 +82,14 @@ export class CalcProvider {
    * @param num 
    * @param deck 
    */
-  drawCard(num: number, fiels_status: Field_Status): Field_Status {
-    const f = fiels_status
-    let new_f = f
+  drawCard(num: number, field_status: Field_Status): Field_Status {
+    if (field_status.deck.length === 0) { return field_status }
+    if (num === 0) { return field_status }
+    let new_f = JSON.parse(JSON.stringify(field_status))
+
     if (num >= new_f.deck.length) {
       new_f.deck = []
-      new_f.hands = f.hands.concat(f.deck)
+      new_f.hands = new_f.hands.concat(new_f.deck)
       return new_f
     }
 

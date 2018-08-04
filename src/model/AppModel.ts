@@ -1,5 +1,4 @@
 export class Card {
-    id: number
     name: string
     money_point: number = 0 // 出力できる金量
     action_point: number = 0 // アクションポイント
