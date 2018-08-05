@@ -3,15 +3,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CalcProvider } from '../providers/calc/calc';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatExpansionModule,MatFormFieldModule,MatRippleModule,MatInputModule,MatButtonModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule, MatFormFieldModule, MatRippleModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { MainPage } from '../pages/main/main';
 import { DeckPage } from '../pages/deck/deck';
 import { SupplyPage } from '../pages/supply/supply';
+import { StorageProvider } from '../providers/storage/storage';
 @NgModule({
   declarations: [
     MyApp,
@@ -23,6 +25,7 @@ import { SupplyPage } from '../pages/supply/supply';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     BrowserAnimationsModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -42,8 +45,11 @@ import { SupplyPage } from '../pages/supply/supply';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CalcProvider
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    CalcProvider,
+    DeckPage,
+    StorageProvider,
+
   ]
 })
-export class AppModule {}
+export class AppModule { }

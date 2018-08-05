@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Card, Field_Status } from '../../model/AppModel';
 import { CalcProvider } from '../../providers/calc/calc';
+import { StorageProvider } from '../../providers/storage/storage';
 
 
 /**
@@ -32,79 +33,38 @@ export class DeckPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private calc: CalcProvider,
+    private storage:StorageProvider,
   ) {
   }
 
-  ionViewDidLoad() {
-
-    // とりあえず初期デッキを作る
-
-    const douka: Card = {
-      name: '銅貨',
-      type: 'money',
-      money_point: 1,
-      action_point: 1,
-      draw_num: 0
-    }
-
-    const yashiki: Card = {
-      name: '屋敷',
-      type: 'money',
-      money_point: 0,
-      action_point: 0,
-      draw_num: 0
-    }
-
-    let t_doro = new Card()
-    t_doro.name = '鍛冶屋'
-    t_doro.type = 'action'
-    t_doro.action_point = 0
-    t_doro.draw_num = 3
-
-    this.field_status.deck.push(t_doro)
-
-    Array(7).fill('').map((val) => {
-      this.field_status.deck.push(douka)
-    })
-
-    Array(3).fill('').map((val) => {
-      this.field_status.deck.push(yashiki)
-    })
-
-    this.deck_length = this.field_status.deck.length
-
-    const f_a = Array(100).fill('').map(() => {
-      return this.calc.follow_turn(this.field_status)
-    })
-
-    let total_money = 0
-    const mp_a = f_a.map((val) => {
-      total_money += val.money_point
-      return val.money_point
-    })
-    this.avarage_money = total_money / 100
-    this.max_money = Math.max(...mp_a)
-    this.min_money = Math.min(...mp_a)
-
+  async ionViewDidLoad() {
+    this.field_status = await this.storage.get_field_status()
+    this.calc_money(100)
   }
+  async ionViewWillEnter(){
+    this.field_status = await this.storage.get_field_status()
+  }
+
 
   calc_money(count: number) {
 
+    console.log(this.field_status)
     const f_a = Array(count).fill('').map(() => {
       return this.calc.follow_turn(this.field_status)
     })
+    console.log(f_a)
 
     let total_money = 0
     const mp_a = f_a.map((val) => {
       total_money += val.money_point
       return val.money_point
     })
+    console.log(mp_a)
+    this.deck_length = this.field_status.deck.length
     this.avarage_money = total_money / count
     this.max_money = Math.max(...mp_a)
     this.min_money = Math.min(...mp_a)
 
   }
-
-
 
 }

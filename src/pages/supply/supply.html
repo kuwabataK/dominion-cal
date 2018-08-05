@@ -15,4 +15,87 @@
 
 <ion-content padding>
 
+  <ion-card>
+    <ion-card-header>
+      新規カード作成
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+
+        <ion-item>
+          <ion-label fixed>カード名</ion-label>
+          <ion-input type="text" [(ngModel)]="new_card.name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>タイプ</ion-label>
+          <ion-select [(ngModel)]="new_card.type">
+            <ion-option value='action'>アクションカード</ion-option>
+            <ion-option value='money'>お金</ion-option>
+          </ion-select>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>金量</ion-label>
+          <ion-select [(ngModel)]="new_card.money_point">
+            <ion-option [value]=0>0</ion-option>
+            <ion-option [value]=1>1</ion-option>
+            <ion-option [value]=2>2</ion-option>
+            <ion-option [value]=3>3</ion-option>
+            <ion-option [value]=4>4</ion-option>
+            <ion-option [value]=5>5</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>アクション</ion-label>
+          <ion-select [(ngModel)]="new_card.action_point">
+            <ion-option [value]=0>0</ion-option>
+            <ion-option [value]=1>1</ion-option>
+            <ion-option [value]=2>2</ion-option>
+            <ion-option [value]=3>3</ion-option>
+            <ion-option [value]=4>4</ion-option>
+            <ion-option [value]=5>5</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>ドロー</ion-label>
+          <ion-select [(ngModel)]="new_card.draw_num">
+            <ion-option [value]=0>0</ion-option>
+            <ion-option [value]=1>1</ion-option>
+            <ion-option [value]=2>2</ion-option>
+            <ion-option [value]=3>3</ion-option>
+            <ion-option [value]=4>4</ion-option>
+            <ion-option [value]=5>5</ion-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-list>
+      <button ion-button full (click)="add_card()">新規カードを追加</button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let a of supply">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{a.name}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+        <p>金: {{a.money_point}}</p>
+        <p>アクション: {{a.action_point}}</p>
+        <p>ドロー: {{a.draw_num}}</p>
+      <button ion-button (click)="add_card_to_deck(a.name)">デッキにカードを追加</button>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
 </ion-content>
