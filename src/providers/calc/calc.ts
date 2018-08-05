@@ -75,7 +75,7 @@ export class CalcProvider {
         return 0
       })
 
-      // 戦闘のアクションを実行
+      // 先頭のアクションを実行
       new_f = this.execOneActionCard(action_hands[0], new_f)
       // console.log(new_f.action_point)
       console.log(new_f.money_point)
