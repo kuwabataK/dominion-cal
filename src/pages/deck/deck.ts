@@ -39,7 +39,7 @@ export class DeckPage {
 
   async ionViewDidLoad() {
     this.field_status = await this.storage.get_field_status()
-    this.calc_money(100)
+    this.calc_money(1000)
   }
   async ionViewWillEnter(){
     this.field_status = await this.storage.get_field_status()
