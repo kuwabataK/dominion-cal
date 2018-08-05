@@ -43,6 +43,8 @@ export class DeckPage {
   }
   async ionViewWillEnter(){
     this.field_status = await this.storage.get_field_status()
+    this.deck_length = this.field_status.deck.length
+
   }
 
 

@@ -23,9 +23,9 @@ export class SupplyPage {
   new_card: Card = new Card()
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    private storage:StorageProvider
+    private storage: StorageProvider
   ) {
   }
 
@@ -33,26 +33,37 @@ export class SupplyPage {
     this.init()
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.init()
   }
 
-  async init(){
+  async init() {
     this.supply = await this.storage.get_supply()
     this.field_status = await this.storage.get_field_status()
   }
 
-  async add_card(){
+  async add_card() {
     const new_c = this.new_card
+
+    // 同じ名前のカードは追加できなくする
+    const same_cards = this.supply.filter((val) => { return val.name === new_c.name })
+    if (same_cards.length !== 0) {
+      return
+    }
     this.supply.push(new_c)
     await this.storage.set_supply(this.supply)
     this.new_card = new Card()
   }
 
-  async add_card_to_deck(card_name :string){
-    const add_card = this.supply.filter((val)=>{return val.name === card_name})[0]
+  async add_card_to_deck(card_name: string) {
+    const add_card = this.supply.filter((val) => { return val.name === card_name })[0]
     this.field_status.deck.push(add_card)
     await this.storage.set_field_status(this.field_status)
+  }
+
+  async remove_card(card: Card){
+    this.supply = this.supply.filter((val)=>{return val.name !== card.name})
+    await this.storage.set_supply(this.supply)
   }
 
 }
