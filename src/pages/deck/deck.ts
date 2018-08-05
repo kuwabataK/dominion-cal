@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Card, Field_Status } from '../../model/AppModel';
 import { CalcProvider } from '../../providers/calc/calc';
 import { StorageProvider } from '../../providers/storage/storage';
@@ -33,23 +33,30 @@ export class DeckPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private calc: CalcProvider,
-    private storage:StorageProvider,
+    private storage: StorageProvider,
     private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
   ) {
   }
 
   async ionViewDidLoad() {
     this.field_status = await this.storage.get_field_status()
-    this.calc_money(1000)
+    this.calc_money(100)
   }
-  async ionViewWillEnter(){
+  async ionViewWillEnter() {
     this.field_status = await this.storage.get_field_status()
     this.deck_length = this.field_status.deck.length
 
   }
 
 
-  calc_money(count: number) {
+  async calc_money(count: number) {
+
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
 
     const f_a = Array(count).fill('').map(() => {
       return this.calc.follow_turn(this.field_status)
@@ -65,24 +72,26 @@ export class DeckPage {
     this.max_money = Math.max(...mp_a)
     this.min_money = Math.min(...mp_a)
 
+    loading.dismiss();
+
   }
 
-  async delete_card(card: Card){
-    let c = this.field_status.deck.filter((val)=>{return val.name !== card.name})
-    let r_c = this.field_status.deck.filter((val)=>{return val.name === card.name})
+  async delete_card(card: Card) {
+    let c = this.field_status.deck.filter((val) => { return val.name !== card.name })
+    let r_c = this.field_status.deck.filter((val) => { return val.name === card.name })
     r_c.pop()
     this.field_status.deck = c.concat(r_c)
     this.deck_length = this.field_status.deck.length
     await this.storage.set_field_status(this.field_status)
   }
 
-  async add_card(card:Card){
+  async add_card(card: Card) {
     this.field_status.deck.push(card)
     this.deck_length = this.field_status.deck.length
     await this.storage.set_field_status(this.field_status)
   }
 
-  async delete_all(){
+  async delete_all() {
 
     let alert = this.alertCtrl.create({
       title: '確認',
