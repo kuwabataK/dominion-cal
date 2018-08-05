@@ -48,23 +48,28 @@ export class DeckPage {
 
   calc_money(count: number) {
 
-    console.log(this.field_status)
     const f_a = Array(count).fill('').map(() => {
       return this.calc.follow_turn(this.field_status)
     })
-    console.log(f_a)
 
     let total_money = 0
     const mp_a = f_a.map((val) => {
       total_money += val.money_point
       return val.money_point
     })
-    console.log(mp_a)
     this.deck_length = this.field_status.deck.length
     this.avarage_money = total_money / count
     this.max_money = Math.max(...mp_a)
     this.min_money = Math.min(...mp_a)
 
+  }
+
+  async delete_card(card: Card){
+    let c = this.field_status.deck.filter((val)=>{return val.name !== card.name})
+    let r_c = this.field_status.deck.filter((val)=>{return val.name === card.name})
+    r_c.pop()
+    this.field_status.deck = c.concat(r_c)
+    await this.storage.set_field_status(this.field_status)
   }
 
 }

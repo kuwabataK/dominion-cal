@@ -107,8 +107,8 @@ export class CalcProvider {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
 
     if (num >= new_f.deck.length) {
-      new_f.deck = []
       new_f.hands = new_f.hands.concat(new_f.deck)
+      new_f.deck = []
       return new_f
     }
 
