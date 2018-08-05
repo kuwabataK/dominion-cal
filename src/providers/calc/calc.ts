@@ -59,10 +59,23 @@ export class CalcProvider {
   private exec_action(field_status: Field_Status): Field_Status {
     let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
     while (new_f.action_point > 0) {
-      if (new_f.hands.length === 0) { return new_f }
-      let action_hands = new_f.hands.filter((val) => { return val.type === 'action' })
-      if (action_hands.length === 0) { return new_f }
-      action_hands.sort((a, b) => { return b.action_point - a.action_point })
+      if (new_f.hands.length === 0) { break; }
+      const action_hands = new_f.hands.filter((val) => { return val.type === 'action' })
+      if (action_hands.length === 0) { break; }
+      // アクションポイント順に並び替える
+      new_f.hands.sort((a, b) => { return b.action_point - a.action_point })
+      // アクションカードを先頭に持ってくる
+      new_f.hands.sort((a, b) => {
+        if (a.type < b.type) {
+          return -1
+        }
+        if (a.type > b.type) {
+          return 1
+        }
+        return 0
+      })
+
+      // 戦闘のアクションを実行
       new_f = this.execOneActionCard(action_hands[0], new_f)
       // console.log(new_f.action_point)
       console.log(new_f.money_point)
@@ -90,7 +103,7 @@ export class CalcProvider {
       new_f = this.drawCard(card.draw_num, new_f)
     }
     // 手札を減らす
-    new_f.hands = new_f.hands.filter((val, i) => { return i !== 0 })
+    new_f.hands.shift()
     return new_f
   }
 
@@ -113,7 +126,7 @@ export class CalcProvider {
     }
 
     Array(num).fill('').map(() => {
-      const index = Math.floor(Math.random() * new_f.deck.length)
+      let index = Math.floor(Math.random() * new_f.deck.length)
       new_f.hands.push(new_f.deck[index])
       new_f.deck = new_f.deck.filter((val, i) => { return i !== index })
     })
