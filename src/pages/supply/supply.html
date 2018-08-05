@@ -74,7 +74,7 @@
         </ion-item>
 
       </ion-list>
-      <button ion-button full (click)="add_card()">新規カードを追加</button>
+      <button ion-button full (click)="add_card()">サプライにカードを追加</button>
 
     </ion-card-content>
   </ion-card>
@@ -93,7 +93,7 @@
         <p>アクション: {{a.action_point}}</p>
         <p>ドロー: {{a.draw_num}}</p>
       <button ion-button (click)="add_card_to_deck(a.name)">デッキにカードを追加</button>
-      <button ion-button (click)="remove_card(a)">削除</button>
+      <button ion-button color="danger" (click)="remove_card(a)">削除</button>
 
 
 

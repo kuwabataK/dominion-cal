@@ -81,4 +81,10 @@ export class DeckPage {
     await this.storage.set_field_status(this.field_status)
   }
 
+  async delete_all(){
+    this.field_status.deck = []
+    this.deck_length = this.field_status.deck.length
+    await this.storage.set_field_status(this.field_status)
+  }
+
 }

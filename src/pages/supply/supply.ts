@@ -44,6 +44,9 @@ export class SupplyPage {
 
   async add_card() {
     const new_c = this.new_card
+    if(new_c.name === ""){
+      return
+    }
 
     // 同じ名前のカードは追加できなくする
     const same_cards = this.supply.filter((val) => { return val.name === new_c.name })
