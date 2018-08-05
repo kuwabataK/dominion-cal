@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController  } from 'ionic-angular';
 import { Card, Field_Status } from '../../model/AppModel';
 import { CalcProvider } from '../../providers/calc/calc';
 import { StorageProvider } from '../../providers/storage/storage';
@@ -34,6 +34,7 @@ export class DeckPage {
     public navParams: NavParams,
     private calc: CalcProvider,
     private storage:StorageProvider,
+    private alertCtrl: AlertController,
   ) {
   }
 
@@ -82,9 +83,30 @@ export class DeckPage {
   }
 
   async delete_all(){
-    this.field_status.deck = []
-    this.deck_length = this.field_status.deck.length
-    await this.storage.set_field_status(this.field_status)
+
+    let alert = this.alertCtrl.create({
+      title: '確認',
+      message: '本当に削除してよろしいですか?',
+      buttons: [
+        {
+          text: 'キャンセル',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: '実行',
+          handler: () => {
+            this.field_status.deck = []
+            this.deck_length = this.field_status.deck.length
+            this.storage.set_field_status(this.field_status)
+          }
+        }
+      ]
+    });
+    alert.present();
+
+
   }
 
 }
