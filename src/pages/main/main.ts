@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { DeckPage } from '../deck/deck';
+import { SupplyPage } from '../supply/supply';
+
 
 /**
  * Generated class for the MainPage tabs.
@@ -8,15 +11,15 @@ import { IonicPage, NavController } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-main',
   templateUrl: 'main.html'
 })
 export class MainPage {
 
-  deckRoot = 'DeckPage'
-  supplyRoot = 'SupplyPage'
+  deckRoot = DeckPage
+  supplyRoot = SupplyPage
 
 
   constructor(public navCtrl: NavController) {}

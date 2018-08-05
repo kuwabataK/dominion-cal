@@ -11,12 +11,14 @@ import { CalcProvider } from '../../providers/calc/calc';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-deck',
   templateUrl: 'deck.html',
 })
 export class DeckPage {
+
+  panelOpenState = false;
 
   field_status: Field_Status = new Field_Status
   deck_length: number = 0
