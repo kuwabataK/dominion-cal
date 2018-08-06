@@ -11,6 +11,8 @@
 
 ## Usage
 
+### Run In Browser
+
 require ionic
 
 ```
@@ -28,3 +30,7 @@ or
 ```
 $ ionic cordova run browser
 ```
+
+### Run in iOS or Android
+
+See https://ionicframework.com/docs/intro/deploying/
