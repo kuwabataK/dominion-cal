@@ -34,3 +34,8 @@ $ ionic cordova run browser
 ### Run as iOS or Android application
 
 See https://ionicframework.com/docs/intro/deploying/
+
+## 今後やりたいこと
+
+* 期待値の計算部分が重すぎて計算中に画面が固まるので、マルチスレッド化して画面が固まらないようにしたい。(Service Workerとか使うといけるらしい？)
+* 平均値だけでなく、中央値とか、何ならヒストグラムとか作りたい。(安定して生産力を出せるデッキなのか、瞬間火力はすごいけど不安定なデッキなのか・・とかわかるようになりそう)
