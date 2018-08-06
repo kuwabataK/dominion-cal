@@ -31,6 +31,6 @@ or
 $ ionic cordova run browser
 ```
 
-### Run in iOS or Android
+### Run as iOS or Android application
 
 See https://ionicframework.com/docs/intro/deploying/
