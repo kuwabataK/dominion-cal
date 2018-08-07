@@ -25,7 +25,7 @@ export class SupplyPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private storage: StorageProvider
+    private storage: StorageProvider,
   ) {
   }
 
@@ -44,7 +44,7 @@ export class SupplyPage {
 
   async add_card() {
     const new_c = this.new_card
-    if(new_c.name === ""){
+    if (new_c.name === "") {
       return
     }
 
@@ -64,8 +64,8 @@ export class SupplyPage {
     await this.storage.set_field_status(this.field_status)
   }
 
-  async remove_card(card: Card){
-    this.supply = this.supply.filter((val)=>{return val.name !== card.name})
+  async remove_card(card: Card) {
+    this.supply = this.supply.filter((val) => { return val.name !== card.name })
     await this.storage.set_supply(this.supply)
   }
 
