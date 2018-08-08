@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Card, Field_Status } from '../../model/AppModel';
+import _ from 'lodash'
 
 
 /*
@@ -19,7 +20,8 @@ export class CalcProvider {
    * @param field_status 
    */
   follow_turn(field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
+
     new_f = this.generate_first_hands(new_f)
     new_f = this.exec_action(new_f)
     new_f = this.exec_money(new_f)
@@ -32,7 +34,9 @@ export class CalcProvider {
    * @param field_status 初期デッキ
    */
   private generate_first_hands(field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
+
+
     new_f = this.drawCard(5, new_f)
     return new_f
   }
@@ -42,7 +46,8 @@ export class CalcProvider {
    * @param field_status 
    */
   private exec_money(field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
+
     new_f.hands.map((card) => {
       if (card.type === 'money') {
         new_f.money_point += card.money_point
@@ -57,7 +62,7 @@ export class CalcProvider {
    * @param hands 
    */
   private exec_action(field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
     while (new_f.action_point > 0) {
       if (new_f.hands.length === 0) { break; }
       const action_hands = new_f.hands.filter((val) => { return val.type === 'action' })
@@ -92,7 +97,8 @@ export class CalcProvider {
    * @param fiels_status
    */
   private execOneActionCard(card: Card, field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
+
 
     // 定性的な処理
     new_f.money_point += card.money_point
@@ -117,7 +123,8 @@ export class CalcProvider {
   private drawCard(num: number, field_status: Field_Status): Field_Status {
     if (field_status.deck.length === 0) { return field_status }
     if (num === 0) { return field_status }
-    let new_f: Field_Status = JSON.parse(JSON.stringify(field_status))
+    let new_f: Field_Status = _.cloneDeep(field_status)
+
 
     if (num >= new_f.deck.length) {
       new_f.hands = new_f.hands.concat(new_f.deck)
