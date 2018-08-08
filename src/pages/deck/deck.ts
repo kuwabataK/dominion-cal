@@ -77,18 +77,13 @@ export class DeckPage {
   }
 
   async delete_card(card: Card) {
-    let c = this.field_status.deck.filter((val) => { return val.name !== card.name })
-    let r_c = this.field_status.deck.filter((val) => { return val.name === card.name })
-    r_c.pop()
-    this.field_status.deck = c.concat(r_c)
+    this.field_status = await this.storage.remove_card_from_deck(card, this.field_status)
     this.deck_length = this.field_status.deck.length
-    await this.storage.set_field_status(this.field_status)
   }
 
   async add_card(card: Card) {
-    this.field_status.deck.push(card)
+    this.field_status = await this.storage.add_card_to_deck(card, this.field_status)
     this.deck_length = this.field_status.deck.length
-    await this.storage.set_field_status(this.field_status)
   }
 
   async delete_all() {
@@ -107,6 +102,7 @@ export class DeckPage {
           text: '実行',
           handler: () => {
             this.field_status.deck = []
+            this.field_status.deck_index = []
             this.deck_length = this.field_status.deck.length
             this.storage.set_field_status(this.field_status)
           }

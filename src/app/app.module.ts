@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { CalcProvider } from '../providers/calc/calc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule, MatFormFieldModule, MatRippleModule, MatInputModule, MatButtonModule } from '@angular/material';
@@ -14,10 +13,10 @@ import { MainPage } from '../pages/main/main';
 import { DeckPage } from '../pages/deck/deck';
 import { SupplyPage } from '../pages/supply/supply';
 import { StorageProvider } from '../providers/storage/storage';
+import { UtilProvider } from '../providers/util/util';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     MainPage,
     DeckPage,
     SupplyPage,
@@ -37,7 +36,6 @@ import { StorageProvider } from '../providers/storage/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     MainPage,
     DeckPage,
     SupplyPage,
@@ -49,6 +47,7 @@ import { StorageProvider } from '../providers/storage/storage';
     CalcProvider,
     DeckPage,
     StorageProvider,
+    UtilProvider,
 
   ]
 })

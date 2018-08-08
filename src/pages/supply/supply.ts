@@ -58,10 +58,8 @@ export class SupplyPage {
     this.new_card = new Card()
   }
 
-  async add_card_to_deck(card_name: string) {
-    const add_card = this.supply.filter((val) => { return val.name === card_name })[0]
-    this.field_status.deck.push(add_card)
-    await this.storage.set_field_status(this.field_status)
+  async add_card_to_deck(card: Card) {
+    this.field_status = await this.storage.add_card_to_deck(card, this.field_status)
   }
 
   async remove_card(card: Card) {

@@ -11,4 +11,13 @@ export class Field_Status{
     money_point: number = 0
     hands: Card[] = []
     deck: Card[] = []
+    deck_index: Card_Index[] = []
+}
+
+/**
+ * 表示用のカードの束、カードの名前と枚数を格納する
+ */
+export class Card_Index {
+    card: Card = new Card
+    cnt: number = 0
 }
