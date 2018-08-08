@@ -17,7 +17,7 @@
 
   <ion-card>
     <ion-card-header>
-      出力金貨量
+        <ion-title>出力金貨量</ion-title>
     </ion-card-header>
     <ion-card-content>
       <p>平均値: {{avarage_money}}</p>
@@ -33,7 +33,12 @@
     <mat-expansion-panel *ngFor="let a of field_status.deck_index">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{a.card.name}} ×{{a.cnt}}
+            <ion-title>{{a.card.name}} ×{{a.cnt}}</ion-title>
+          <ion-buttons end>
+            <button ion-button (click)="add_card(a.card)">+</button>
+            <button ion-button (click)="delete_card(a.card)">-</button>
+          </ion-buttons>
+
         </mat-panel-title>
 
       </mat-expansion-panel-header>
@@ -42,10 +47,6 @@
       <p>金: {{a.card.money_point}}</p>
       <p>アクション: {{a.card.action_point}}</p>
       <p>ドロー: {{a.card.draw_num}}</p>
-
-      <button ion-button (click)="add_card(a.card)">増やす</button>
-      <button ion-button (click)="delete_card(a.card)">減らす</button>
-
 
     </mat-expansion-panel>
   </mat-accordion>

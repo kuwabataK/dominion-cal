@@ -29,6 +29,7 @@ export class DeckPage {
   min_money = 0
 
 
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -110,8 +111,6 @@ export class DeckPage {
       ]
     });
     alert.present();
-
-
   }
 
 }

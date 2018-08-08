@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '../../../node_modules/@ionic/storage';
 import { Field_Status, Card } from '../../model/AppModel';
 import _ from 'lodash'
+import { UtilProvider } from '../util/util';
 
 
 /*
@@ -15,6 +16,7 @@ export class StorageProvider {
 
   constructor(
     private storage: Storage,
+    private util: UtilProvider,
   ) {
   }
 
@@ -24,7 +26,17 @@ export class StorageProvider {
   }
 
   async set_field_status(f_s: Field_Status) {
-    await this.storage.set('Field_Status', f_s)
+    const deck = this.util.sort_card(f_s.deck)
+    const deck_index = this.util.sort_card_index(f_s.deck_index)
+    const new_f: Field_Status = {
+      action_point: f_s.action_point,
+      deck: deck,
+      deck_index: deck_index,
+      money_point: f_s.money_point,
+      hands: f_s.hands
+    }
+    await this.storage.set('Field_Status', new_f)
+    return new_f
   }
 
   async get_supply() {
@@ -33,7 +45,9 @@ export class StorageProvider {
   }
 
   async set_supply(supply: Card[]) {
-    await this.storage.set('Supply', supply)
+    const n_supply = this.util.sort_card(supply)
+    await this.storage.set('Supply', n_supply)
+    return n_supply
   }
 
   async add_card_to_deck(card: Card, field_status: Field_Status) {
@@ -50,8 +64,7 @@ export class StorageProvider {
       new_f.deck_index = new_f.deck_index.filter((val) => { return val.card.name !== card.name }).concat(same_card)
     }
 
-    await this.set_field_status(new_f)
-    return new_f
+    return await this.set_field_status(new_f)
   }
 
   async remove_card_from_deck(card: Card, field_status: Field_Status) {
@@ -72,8 +85,7 @@ export class StorageProvider {
       same_card = []
     }
     new_f.deck_index = new_f.deck_index.filter((val) => { return val.card.name !== card.name }).concat(same_card)
-    await this.set_field_status(new_f)
-    return new_f
+    return await this.set_field_status(new_f)
   }
 
 }
