@@ -82,7 +82,7 @@ export class StorageProvider {
     if (same_card[0].cnt >= 2) {
       same_card[0].cnt -= 1
     } else {
-      same_card = []
+      same_card[0].cnt = 0
     }
     new_f.deck_index = new_f.deck_index.filter((val) => { return val.card.name !== card.name }).concat(same_card)
     return await this.set_field_status(new_f)
