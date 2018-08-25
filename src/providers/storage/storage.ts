@@ -41,7 +41,35 @@ export class StorageProvider {
 
   async get_supply() {
     const res = await this.storage.get('Supply')
-    return (res == null ? [] : res)
+    const first_supply: Card[] =[{
+      name: "屋敷",
+      type: 'money',
+      money_point: 0,
+      action_point: 0,
+      draw_num: 0
+    },
+    {
+      name: "銅貨",
+      type: 'money',
+      money_point: 1,
+      action_point: 0,
+      draw_num: 0
+    },
+    {
+      name: "銀貨",
+      type: 'money',
+      money_point: 2,
+      action_point: 0,
+      draw_num: 0
+    },
+    {
+      name: "金貨",
+      type: 'money',
+      money_point: 3,
+      action_point: 0,
+      draw_num: 0
+    }]
+    return (res == null ? first_supply : res)
   }
 
   async set_supply(supply: Card[]) {
