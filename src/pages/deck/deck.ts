@@ -57,17 +57,21 @@ export class DeckPage {
       content: 'Please wait...'
     });
 
-    loading.present();
+    await loading.present();
 
+    // アクションフェイズを実行
     const f_a = Array(count).fill('').map(() => {
       return this.calc.follow_turn(this.field_status)
     })
 
+    // お金を計算
     let total_money = 0
     const mp_a = f_a.map((val) => {
       total_money += val.money_point
       return val.money_point
     })
+
+    // 結果をビューに送る
     this.deck_length = this.field_status.deck.length
     this.avarage_money = total_money / count
     this.max_money = Math.max(...mp_a)
