@@ -17,26 +17,26 @@
   
   <ion-card>
     <ion-card-header>
-        <ion-title>出力金貨量</ion-title>
+        <ion-title>Power of Genarating Money</ion-title>
     </ion-card-header>
     <ion-card-content>
-      <p>平均値: {{avarage_money}}</p>
-      <p>最大値: {{max_money}}</p>
-      <p>最小値: {{min_money}}</p>
-      <p>デッキ枚数: {{deck_length}}</p>
+      <p>Average: {{avarage_money}}</p>
+      <p>Max: {{max_money}}</p>
+      <p>Min: {{min_money}}</p>
+      <p>Num of Deck: {{deck_length}}</p>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-      Bar Chart
+      Histogram
     </ion-card-header>
     <ion-card-content>
       <canvas #barCanvas></canvas>
     </ion-card-content>
   </ion-card>
 
-  <button ion-button full (click)="calc_money(1000)">計算する</button>
+  <button ion-button full (click)="calc_money(1000)">Calculate</button>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let a of field_status.deck_index">
@@ -52,15 +52,15 @@
 
       </mat-expansion-panel-header>
 
-      <p>タイプ: {{a.card.type}}</p>
-      <p>金: {{a.card.money_point}}</p>
-      <p>アクション: {{a.card.action_point}}</p>
-      <p>ドロー: {{a.card.draw_num}}</p>
+      <p>Type: {{a.card.type}}</p>
+      <p>Money: {{a.card.money_point}}</p>
+      <p>Action: {{a.card.action_point}}</p>
+      <p>Draw: {{a.card.draw_num}}</p>
 
     </mat-expansion-panel>
   </mat-accordion>
 
-  <button ion-button full color="danger" (click)="delete_all()">全カード削除</button>
+  <button ion-button full color="danger" (click)="delete_all()">All Delete From Deck</button>
 
 
 </ion-content>

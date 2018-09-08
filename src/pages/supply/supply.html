@@ -17,28 +17,28 @@
 
   <ion-card>
     <ion-card-header>
-      新規カード作成
+      Create New Card
     </ion-card-header>
     <ion-card-content>
 
       <ion-list>
 
         <ion-item>
-          <ion-label fixed>カード名</ion-label>
+          <ion-label fixed>Name</ion-label>
           <ion-input type="text" [(ngModel)]="new_card.name"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>タイプ</ion-label>
+          <ion-label>Type</ion-label>
           <ion-select [(ngModel)]="new_card.type">
-            <ion-option value='action'>アクションカード</ion-option>
-            <ion-option value='money'>お金</ion-option>
+            <ion-option value='action'>Action</ion-option>
+            <ion-option value='money'>Money</ion-option>
           </ion-select>
         </ion-item>
 
 
         <ion-item>
-          <ion-label>金量</ion-label>
+          <ion-label>Money</ion-label>
           <ion-select [(ngModel)]="new_card.money_point">
             <ion-option [value]=0>0</ion-option>
             <ion-option [value]=1>1</ion-option>
@@ -50,7 +50,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>アクション</ion-label>
+          <ion-label>Action</ion-label>
           <ion-select [(ngModel)]="new_card.action_point">
             <ion-option [value]=0>0</ion-option>
             <ion-option [value]=1>1</ion-option>
@@ -62,7 +62,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>ドロー</ion-label>
+          <ion-label>Draw</ion-label>
           <ion-select [(ngModel)]="new_card.draw_num">
             <ion-option [value]=0>0</ion-option>
             <ion-option [value]=1>1</ion-option>
@@ -74,7 +74,7 @@
         </ion-item>
 
       </ion-list>
-      <button ion-button full (click)="add_card()">サプライにカードを追加</button>
+      <button ion-button full (click)="add_card()">Add to supply</button>
 
     </ion-card-content>
   </ion-card>
@@ -88,12 +88,12 @@
 
       </mat-expansion-panel-header>
 
-        <p>タイプ: {{a.type}}</p>
-        <p>金: {{a.money_point}}</p>
-        <p>アクション: {{a.action_point}}</p>
-        <p>ドロー: {{a.draw_num}}</p>
-      <button ion-button (click)="add_card_to_deck(a)">デッキにカードを追加</button>
-      <button ion-button color="danger" (click)="remove_card(a)">削除</button>
+        <p>Type: {{a.type}}</p>
+        <p>Money: {{a.money_point}}</p>
+        <p>Action: {{a.action_point}}</p>
+        <p>Draw: {{a.draw_num}}</p>
+      <button ion-button (click)="add_card_to_deck(a)">Add to Deck</button>
+      <button ion-button color="danger" (click)="remove_card(a)">Delete from supply</button>
 
 
 

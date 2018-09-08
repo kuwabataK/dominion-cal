@@ -145,7 +145,7 @@ export class DeckPage {
       data: {
         labels: this.chart_label,
         datasets: [{
-          label: '# of Votes',
+          label: 'count',
           data: this.chart_data,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
