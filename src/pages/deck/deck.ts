@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Card, Field_Status } from '../../model/AppModel';
 import { CalcProvider } from '../../providers/calc/calc';
 import { StorageProvider } from '../../providers/storage/storage';
-
+import { Chart } from 'chart.js';
 
 /**
  * Generated class for the DeckPage page.
@@ -18,6 +18,17 @@ import { StorageProvider } from '../../providers/storage/storage';
   templateUrl: 'deck.html',
 })
 export class DeckPage {
+
+  @ViewChild('barCanvas') barCanvas;
+  barChart: any;
+
+  chart_label: number[] = [
+    1, 2, 3, 4, 5, 6
+  ]
+
+  chart_data: number[] = [
+    0, 0, 0, 0, 0, 0
+  ]
 
   panelOpenState = false;
 
@@ -43,11 +54,11 @@ export class DeckPage {
   async ionViewDidLoad() {
     this.field_status = await this.storage.get_field_status()
     this.calc_money(100)
+    this.chartInit()
   }
   async ionViewWillEnter() {
     this.field_status = await this.storage.get_field_status()
     this.deck_length = this.field_status.deck.length
-
   }
 
 
@@ -76,6 +87,16 @@ export class DeckPage {
     this.avarage_money = total_money / count
     this.max_money = Math.max(...mp_a)
     this.min_money = Math.min(...mp_a)
+
+    // グラフを作る
+    let label = mp_a.filter((x, i, self) => { return self.indexOf(x) === i });
+    label.sort((a, b) => { return a - b })
+
+    this.chart_data = label.map((_num) => {
+      return mp_a.filter((e) => { return _num === e }).length
+    })
+    this.chart_label = label
+    this.chartInit()
 
     loading.dismiss();
 
@@ -115,6 +136,75 @@ export class DeckPage {
       ]
     });
     alert.present();
+  }
+
+  private chartInit() {
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+
+      type: 'bar',
+      data: {
+        labels: this.chart_label,
+        datasets: [{
+          label: '# of Votes',
+          data: this.chart_data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        tooltips:{
+          enabled: false,
+          mode: 'dataset'
+        }
+      }
+
+    });
   }
 
 }
