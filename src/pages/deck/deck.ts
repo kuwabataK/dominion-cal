@@ -102,12 +102,14 @@ export class DeckPage {
 
   }
 
-  async delete_card(card: Card) {
+  async delete_card(event,card: Card) {
+    event.stopPropagation()
     this.field_status = await this.storage.remove_card_from_deck(card, this.field_status)
     this.deck_length = this.field_status.deck.length
   }
 
-  async add_card(card: Card) {
+  async add_card(event,card: Card) {
+    event.stopPropagation()
     this.field_status = await this.storage.add_card_to_deck(card, this.field_status)
     this.deck_length = this.field_status.deck.length
   }

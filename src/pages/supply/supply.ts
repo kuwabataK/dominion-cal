@@ -29,10 +29,6 @@ export class SupplyPage {
   ) {
   }
 
-  ionViewDidLoad() {
-    this.init()
-  }
-
   ionViewWillEnter() {
     this.init()
   }

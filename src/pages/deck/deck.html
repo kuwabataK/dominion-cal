@@ -44,8 +44,8 @@
         <mat-panel-title>
             <ion-title>{{a.card.name}} ×{{a.cnt}}</ion-title>
           <ion-buttons end>
-            <button ion-button (click)="add_card(a.card)">+</button>
-            <button ion-button (click)="delete_card(a.card)">-</button>
+            <button ion-button (click)="add_card($event,a.card)">+</button>
+            <button ion-button (click)="delete_card($event,a.card)">-</button>
           </ion-buttons>
 
         </mat-panel-title>
