@@ -14,10 +14,10 @@
 
 
 <ion-content padding>
-  
+
   <ion-card>
     <ion-card-header>
-        <ion-title>Power of Genarating Money</ion-title>
+      <ion-title>Power of Genarating Money</ion-title>
     </ion-card-header>
     <ion-card-content>
       <p>Average: {{avarage_money}}</p>
@@ -38,17 +38,20 @@
 
   <button ion-button full (click)="calc_money(1000)">Calculate</button>
 
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let a of field_status.deck_index">
+  <mat-accordion >
+    <mat-expansion-panel *ngFor="let a of field_status.deck_index" >
       <mat-expansion-panel-header>
-        <mat-panel-title>
-            <ion-title>{{a.card.name}} ×{{a.cnt}}</ion-title>
-          <ion-buttons end>
-            <button ion-button (click)="add_card($event,a.card)">+</button>
-            <button ion-button (click)="delete_card($event,a.card)">-</button>
-          </ion-buttons>
-
+        <mat-panel-title class="card-title">
+          {{a.card.name}} ×{{a.cnt}}
         </mat-panel-title>
+        <mat-panel-description class="card-header">
+            <button class="header-button" ion-button round icon-only small (click)="add_card($event,a.card)">
+              <ion-icon name="ios-add"></ion-icon>
+            </button>
+            <button class="header-button" ion-button round icon-only small (click)="delete_card($event,a.card)">
+              <ion-icon name="ios-remove"></ion-icon>
+            </button>
+        </mat-panel-description>
 
       </mat-expansion-panel-header>
 
