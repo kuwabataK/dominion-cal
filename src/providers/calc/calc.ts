@@ -20,7 +20,7 @@ export class CalcProvider {
    * @param field_status 
    */
   follow_turn(field_status: Field_Status): Field_Status {
-    let new_f: Field_Status = _.cloneDeep(field_status)
+    let new_f = _.cloneDeep(field_status)
     
     new_f = this.generate_first_hands(new_f)
     new_f = this.exec_action(new_f)
