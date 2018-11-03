@@ -38,19 +38,19 @@
 
   <button ion-button full (click)="calc_money(1000)">Calculate</button>
 
-  <mat-accordion >
-    <mat-expansion-panel *ngFor="let a of field_status.deck_index" >
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let a of field_status.deck_index">
       <mat-expansion-panel-header>
         <mat-panel-title class="card-title">
           {{a.card.name}} ×{{a.cnt}}
         </mat-panel-title>
         <mat-panel-description class="card-header">
-            <button class="header-button" ion-button round icon-only small (click)="add_card($event,a.card)">
-              <ion-icon name="ios-add"></ion-icon>
-            </button>
-            <button class="header-button" ion-button round icon-only small (click)="delete_card($event,a.card)">
-              <ion-icon name="ios-remove"></ion-icon>
-            </button>
+          <button class="header-button" ion-button round icon-only small (click)="add_card($event,a.card)">
+            <ion-icon name="ios-add"></ion-icon>
+          </button>
+          <button class="header-button" ion-button round icon-only small (click)="delete_card($event,a.card)">
+            <ion-icon name="ios-remove"></ion-icon>
+          </button>
         </mat-panel-description>
 
       </mat-expansion-panel-header>
