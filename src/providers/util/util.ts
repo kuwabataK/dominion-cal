@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { StorageProvider } from '../storage/storage';
 import { Card, Card_Index } from '../../model/AppModel';
 import _ from 'lodash'
 

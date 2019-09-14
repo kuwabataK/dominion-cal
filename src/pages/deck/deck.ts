@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import {  NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Card, Field_Status } from '../../model/AppModel';
 import { CalcProvider } from '../../providers/calc/calc';
 import { StorageProvider } from '../../providers/storage/storage';
