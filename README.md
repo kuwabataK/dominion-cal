@@ -1,6 +1,8 @@
 # Dominion cal
 
-![](./doc/img/dominion_cal.gif)
+[Demo](https://peaceful-davinci-0b4bad.netlify.com/)
+
+
 
 ## What is it?
 * 山札から5枚のカードを引いて手札にしたとき、その手札から何金出せるかの期待値を計算するionicアプリです。
