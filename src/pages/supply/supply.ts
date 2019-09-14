@@ -44,6 +44,11 @@ export class SupplyPage {
       return
     }
 
+    // アクションが設定されている場合は強制的にアクションカードにする
+    if (new_c.action_point >= 1){
+      new_c.type = 'action'
+    }
+
     // 同じ名前のカードは追加できなくする
     const same_cards = this.supply.filter((val) => { return val.name === new_c.name })
     if (same_cards.length !== 0) {
